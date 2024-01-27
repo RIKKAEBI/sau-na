@@ -23,6 +23,7 @@ type DbConfig struct {
 func (DbConfig) LoadFromEnv() (*DbConfig, error) {
 	err := godotenv.Load(".env")
 	if err != nil {
+		log.Println("envの読み込みに失敗しました。")
 		return nil, errors.New("envの読み込みに失敗しました。")
 	}
 	conf := new(DbConfig)
@@ -32,7 +33,6 @@ func (DbConfig) LoadFromEnv() (*DbConfig, error) {
 	conf.Pass = os.Getenv("DB_PASS")
 	conf.Port = os.Getenv("DB_PORT")
 	conf.Dbname = os.Getenv("DB_NAME")
-	log.Println(conf)
 	return conf, nil
 }
 
