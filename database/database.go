@@ -3,6 +3,7 @@ package database
 import (
 	"errors"
 	"fmt"
+	"log"
 	"os"
 
 	"braces.dev/errtrace"
@@ -31,6 +32,7 @@ func (DbConfig) LoadFromEnv() (*DbConfig, error) {
 	conf.Pass = os.Getenv("DB_PASS")
 	conf.Port = os.Getenv("DB_PORT")
 	conf.Dbname = os.Getenv("DB_NAME")
+	log.Println(conf)
 	return conf, nil
 }
 
