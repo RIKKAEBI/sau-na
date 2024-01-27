@@ -59,7 +59,6 @@ func createDatabaseForRoot() error {
 }
 
 func ConnectDatabase() (*gorm.DB, error) {
-	createDatabaseForRoot()
 	conf, err := new(DbConfig).LoadFromEnv()
 	dsn := fmt.Sprintf("%s:%s@(%s:%v)/%s?charset=utf8mb4&parseTime=true&tls=true&interpolateParams=true", conf.User, conf.Pass, conf.Host, conf.Port, conf.Dbname)
 	db, err := gorm.Open(mysql.Open(dsn), GetGormConf())
