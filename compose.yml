@@ -1,0 +1,16 @@
+services:
+  db:
+    build:
+      context: ./docker/db
+    container_name: sau-na-db
+
+  web:
+    build: 
+      context: ./docker/web
+    container_name: sau-na-web
+    volumes:
+      - .:/web
+    working_dir: /web
+    tty: true
+    ports:
+      - 3000:3000
