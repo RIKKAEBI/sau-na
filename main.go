@@ -15,6 +15,9 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
+
+	database.Migration(db)
+
 	router.InitRouter(e, db)
 
 	if err := e.Start(":3000"); err != nil {
