@@ -46,7 +46,7 @@ func createDatabaseForRoot() error {
 	if err != nil {
 		return err
 	}
-	dsn := fmt.Sprintf("%s:%s@(%s:%v)/?charset=utf8mb4&parseTime=true&loc=Local", conf.User, conf.Pass, conf.Host, conf.Port)
+	dsn := fmt.Sprintf("%s:%s@(%s)/?charset=utf8mb4&parseTime=true&loc=Local", conf.User, conf.Pass, conf.Host)
 	db, err := gorm.Open(mysql.Open(dsn), GetGormConf())
 	if err != nil {
 		return errtrace.Wrap(err)
@@ -61,7 +61,8 @@ func createDatabaseForRoot() error {
 func ConnectDatabase() (*gorm.DB, error) {
 	createDatabaseForRoot()
 	conf, err := new(DbConfig).LoadFromEnv()
-	dsn := fmt.Sprintf("%s:%s@(%s:%v)/%s?charset=utf8mb4&parseTime=true", conf.User, conf.Pass, conf.Host, conf.Port, conf.Dbname)
+
+	dsn := fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8mb4&parseTime=true", conf.User, conf.Pass, conf.Host, conf.Dbname)
 	db, err := gorm.Open(mysql.Open(dsn), GetGormConf())
 	if err != nil {
 		return nil, errtrace.Wrap(err)
