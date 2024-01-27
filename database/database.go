@@ -17,13 +17,20 @@ type DbConfig struct {
 	Pass   string
 	Port   string
 	Dbname string
+	Env    string
 }
 
-func (DbConfig) LoadFromEnv() (*DbConfig, error) {
-	err := godotenv.Load(".env")
-	if err != nil {
-		return nil, errors.New("envの読み込みに失敗しました。")
+func (DbConfig) LoadEnv() (*DbConfig, error) {
+
+	env := os.Getenv("ENV")
+
+	if env == "local" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			return nil, errors.New("envの読み込みに失敗しました。")
+		}
 	}
+
 	conf := new(DbConfig)
 
 	conf.Host = os.Getenv("DB_HOST")
@@ -42,11 +49,17 @@ func GetGormConf() *gorm.Config {
 }
 
 func createDatabaseForRoot() error {
-	conf, err := new(DbConfig).LoadFromEnv()
+	conf, err := new(DbConfig).LoadEnv()
 	if err != nil {
 		return err
 	}
-	dsn := fmt.Sprintf("%s:%s@(%s:%v)/?charset=utf8mb4&parseTime=true&loc=Local&tls=true&interpolateParams=true", conf.User, conf.Pass, conf.Host, conf.Port)
+	dsn := fmt.Sprintf("%s:%s@(%s:%v)/?charset=utf8mb4&parseTime=true&loc=Local", conf.User, conf.Pass, conf.Host,
+		conf.Port)
+
+	if conf.Env == "dev" || conf.Env == "prod" {
+		dsn += "?tls=true&interpolateParams=true"
+	}
+
 	db, err := gorm.Open(mysql.Open(dsn), GetGormConf())
 	if err != nil {
 		return errtrace.Wrap(err)
@@ -60,8 +73,17 @@ func createDatabaseForRoot() error {
 
 func ConnectDatabase() (*gorm.DB, error) {
 	createDatabaseForRoot()
-	conf, err := new(DbConfig).LoadFromEnv()
-	dsn := fmt.Sprintf("%s:%s@(%s:%v)/%s?charset=utf8mb4&parseTime=true&tls=true&interpolateParams=true", conf.User, conf.Pass, conf.Host, conf.Port, conf.Dbname)
+	conf, err := new(DbConfig).LoadEnv()
+	if err != nil {
+		return nil, err
+	}
+
+	dsn := fmt.Sprintf("%s:%s@(%s:%v)/%s?charset=utf8mb4&parseTime=true", conf.User, conf.Pass, conf.Host, conf.Port, conf.Dbname)
+
+	if conf.Env == "dev" || conf.Env == "prod" {
+		dsn += "?tls=true&interpolateParams=true"
+	}
+
 	db, err := gorm.Open(mysql.Open(dsn), GetGormConf())
 	if err != nil {
 		return nil, errtrace.Wrap(err)
