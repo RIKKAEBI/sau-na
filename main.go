@@ -1,7 +1,9 @@
 package main
 
 import (
-	"net/http"
+	"os"
+	"sau-na/database"
+	"sau-na/router"
 
 	"github.com/labstack/echo/v4"
 )
@@ -9,8 +11,12 @@ import (
 func main() {
 	e := echo.New()
 
-	// controller.InitController(e, db)
-	e.GET("/", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, "OK")
-	})
+	db, err := database.ConnectDatabase()
+	if err != nil {
+		os.Exit(1)
+	}
+	router.InitRouter(e, db)
+
+	if err := e.Start(":3000"); err != nil {
+	}
 }
