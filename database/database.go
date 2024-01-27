@@ -3,7 +3,6 @@ package database
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
 
 	"braces.dev/errtrace"
