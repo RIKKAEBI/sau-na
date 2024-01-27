@@ -9,6 +9,7 @@ import (
 
 type HealthController interface {
 	HC(c echo.Context) error
+	HelloPage(c echo.Context) error
 }
 
 type healthController struct {
@@ -23,4 +24,8 @@ func NewHealthController(db *gorm.DB) *healthController {
 
 func (h *healthController) HC(c echo.Context) error {
 	return c.JSON(http.StatusOK, "OK")
+}
+
+func (a *healthController) HelloPage(c echo.Context) error {
+	return c.Render(http.StatusOK, "index.html", nil)
 }
