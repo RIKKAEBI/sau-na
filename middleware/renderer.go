@@ -22,7 +22,7 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 
 func InitRenderer(e *echo.Echo) {
 	renderer := &TemplateRenderer{
-		templates: template.Must(template.ParseGlob("./public/*.html")),
+		templates: template.Must(template.ParseGlob("./template/*.html")),
 	}
 	e.Renderer = renderer
 }
