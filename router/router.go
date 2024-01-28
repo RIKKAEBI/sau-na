@@ -7,7 +7,8 @@ import (
 )
 
 func InitRouter(e *echo.Echo) {
-	// middleware.InitRenderer(e)
+	e.File("/assets/main.js", "./components/dist/assets/main.js")
+	e.File("/assets/style.css", "./components/dist/assets/style.css")
 
 	e.GET("/", controller.Home)
 }
