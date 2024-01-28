@@ -9,9 +9,11 @@ import { customElement, property } from 'lit/decorators.js'
 @customElement('sau-button')
 export class SauButton extends LitElement {
   @property({ attribute: 'outline', type: Boolean }) outline = false;
+  @property({ attribute: 'message', type: String }) message = '';
 
   attributeChangedCallback() {
-    this.outline = !this.getAttribute("outline")
+    this.outline = this.getAttribute("outline") === ''
+    this.message = this.getAttribute("message") || ''
   }
 
   private _onClick() {
@@ -19,11 +21,11 @@ export class SauButton extends LitElement {
   }
 
   render() {
-    const { outline } = this;
+    const { outline, message } = this;
 
     return html/* html */`
       <button class=${(outline ? 'outline ' : '') + "sau-button"} @click=${this._onClick}>
-        <slot></slot>
+        ${message}  
       </button>
     `
   }
