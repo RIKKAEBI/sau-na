@@ -9,16 +9,9 @@ import { customElement, property } from 'lit/decorators.js'
 @customElement('sau-button')
 export class SauButton extends LitElement {
   @property({ attribute: 'outline', type: Boolean }) outline = false;
-  @property({ attribute: 'message', type: String }) message = ""
-  
-  protected createRenderRoot() {
-    return this; // Light DOMを使うように
-    // thisがLight DOMの<lit-component>のエレメントに当たります
-  }
 
   attributeChangedCallback() {
     this.outline = !this.getAttribute("outline")
-    this.message = this.getAttribute("message") || ""
   }
 
   private _onClick() {
@@ -26,17 +19,17 @@ export class SauButton extends LitElement {
   }
 
   render() {
-    const { outline, message } = this;
+    const { outline } = this;
 
     return html/* html */`
-      <style>${this.styles}</style>
       <button class=${(outline ? 'outline ' : '') + "sau-button"} @click=${this._onClick}>
-        ${message}
+        <slot></slot>
       </button>
     `
   }
 
-  styles = css/* css */`
+  static styles = css/* css */`
+    /* reset css */
     button {
       background-color: transparent;
       border: none;
