@@ -10,7 +10,5 @@ func main() {
 	e := echo.New()
 	router.InitRouter(e)
 
-	if err := e.Start(":3000"); err != nil {
-
-	}
+	e.Logger.Fatal(e.Start(":3000"))
 }
