@@ -2,6 +2,7 @@
 
 # web component build
 cd components/
+npm install
 npm run build
 cd ..
 
