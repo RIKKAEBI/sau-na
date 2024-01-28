@@ -10,5 +10,5 @@ func main() {
 	e := echo.New()
 	router.InitRouter(e)
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":3000"))
 }
