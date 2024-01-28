@@ -8,7 +8,6 @@ import (
 
 func main() {
 	e := echo.New()
-	router.InitRouter(e)
-
+	router.Init(e)
 	e.Logger.Fatal(e.Start(":3000"))
 }
