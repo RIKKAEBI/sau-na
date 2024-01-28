@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://sau-na.com">
-    <img src="./components/public/favicon.ico" height="96">
+    <img src="./Kasu-chan.png" height="96">
     <h3 align="center">さう〜な</h3>
   </a>
 </p>
