@@ -1,13 +1,14 @@
 package router
 
 import (
-	"sau-na/controller"
-
 	"github.com/labstack/echo/v4"
 )
 
-func Init(e *echo.Echo) {
-	// 静的ファイル
+func InitRouter(e *echo.Echo) {
+	setStatic(e)
+}
+
+func setStatic(e *echo.Echo) {
 	e.File("/", "./components/dist/index.html")
 	e.File("/favicon.ico", "./components/dist/favicon.ico")
 	e.File("/assets/main.js", "./components/dist/assets/main.js")
