@@ -1,12 +1,12 @@
 services:
   db:
     build:
-      context: ./docker/db
+      context: ./.docker/db
     container_name: sau-na-db
 
   web:
     build: 
-      context: ./docker/web
+      context: ./.docker/web
     container_name: sau-na-web
     volumes:
       - .:/web
