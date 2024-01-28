@@ -1,11 +1,16 @@
 package router
 
 import (
+	"sau-na/controller"
+
 	"github.com/labstack/echo/v4"
 )
 
 func InitRouter(e *echo.Echo) {
 	setStatic(e)
+
+	// API用のエンドポイントは /api から始める
+	e.GET("/api/health", controller.Health)
 }
 
 func setStatic(e *echo.Echo) {

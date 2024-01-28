@@ -2,30 +2,46 @@ package controller
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
-	"gorm.io/gorm"
 )
 
-type HealthController interface {
-	HC(c echo.Context) error
-	HelloPage(c echo.Context) error
+type Date struct {
+	date int64
 }
 
-type healthController struct {
-	db *gorm.DB
+func Health(c echo.Context) error {
+	date := Date{date: time.Now().Unix()}
+
+	return c.JSON(http.StatusOK, date)
 }
 
-func NewHealthController(db *gorm.DB) *healthController {
-	return &healthController{
-		db: db,
-	}
-}
+// TODO: 一旦本番で動かないのでコメントアウト
+// package controller
 
-func (h *healthController) HC(c echo.Context) error {
-	return c.JSON(http.StatusOK, "OK")
-}
+// import (
+// 	"net/http"
 
-func (a *healthController) HelloPage(c echo.Context) error {
-	return c.Render(http.StatusOK, "index.html", nil)
-}
+// 	"github.com/labstack/echo/v4"
+// 	"gorm.io/gorm"
+// )
+
+// type HealthController interface {
+// 	HC(c echo.Context) error
+// 	HelloPage(c echo.Context) error
+// }
+
+// type healthController struct {
+// 	db *gorm.DB
+// }
+
+// func NewHealthController(db *gorm.DB) *healthController {
+// 	return &healthController{
+// 		db: db,
+// 	}
+// }
+
+// func (h *healthController) HC(c echo.Context) error {
+// 	return c.JSON(http.StatusOK, "OK")
+// }
