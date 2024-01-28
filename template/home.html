@@ -12,9 +12,9 @@
 <body>
   <h1>Hello {{.name}}</h1>
   <br>
-  <sau-button hx-post='/api/users/me'>クリックして！！</sau-button>
+  <sau-button message="クリックして！！" hx-post='/api/users/me'></sau-button>
   <br>
-  <sau-button outline hx-post='/api/users/me'>クリックして！！</sau-button>
+  <sau-button outline message="クリックして！！" hx-post='/api/users/me'></sau-button>
 </body>
 </html>
 {{end}}
