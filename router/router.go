@@ -3,7 +3,6 @@ package router
 import (
 	"html/template"
 	"io"
-	"sau-na/controller"
 
 	"github.com/labstack/echo/v4"
 )
@@ -29,10 +28,8 @@ func InitRouter(e *echo.Echo) {
 	}
 	e.Renderer = renderer
 
+	e.File("/favicon.ico", "./public/favicon.ico")
+	e.File("/", "./components/dist/index.html")
 	e.File("/assets/main.js", "./components/dist/assets/main.js")
 	e.File("/assets/style.css", "./components/dist/assets/style.css")
-
-	e.File("/favicon.ico", "./public/favicon.ico")
-
-	e.GET("/", controller.Home)
 }
