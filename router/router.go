@@ -18,4 +18,8 @@ func setStatic(e *echo.Echo) {
 	e.File("/favicon.ico", "./components/dist/favicon.ico")
 	e.File("/assets/main.js", "./components/dist/assets/main.js")
 	e.File("/assets/style.css", "./components/dist/assets/style.css")
+
+	// TODO: 頭悪い配置やめたい時間ないからとりあえず
+	e.File("/assets/style2.css", "./components/dist/assets/style2.css")
+	e.File("/assets/style3.css", "./components/dist/assets/style3.css")
 }
