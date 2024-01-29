@@ -2,6 +2,7 @@
   "recommendations": [
     "golang.go",
     "jinliming2.vscode-go-template",
-    "esbenp.prettier-vscode"
-  ],
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss"
+  ]
 }
