@@ -7,4 +7,6 @@
 
 <p align="center">
   サウナの習慣化と健康を紐づけて管理できるアプリです。
+  <br />
+  <a href="https://sau-na.com">App</a> · <a href="https://storybook.sau-na.com">Storybook</a> · <a href="#">Notion</a>
 </p>
