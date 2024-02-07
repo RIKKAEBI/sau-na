@@ -13,6 +13,11 @@ ENV PATH=$PATH:/usr/local/go/bin
 
 RUN rm go$GOLANG_VERSION.src.tar.gz
 
+# air install
+RUN go install github.com/cosmtrek/air@latest
+
+RUN echo "alias air='$(go env GOPATH)/bin/air'" >> /root/.bashrc
+
 #we delete the apk installed version to avoid conflict
 RUN apk del go
 
