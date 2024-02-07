@@ -4,6 +4,7 @@
 cd components/
 npm install
 npm run build
+npm run sb:build
 cd ..
 
 # go project build
