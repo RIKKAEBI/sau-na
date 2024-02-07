@@ -1,19 +1,80 @@
 package router
 
 import (
-	"sau-na/controller"
+	"fmt"
+	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-func InitRouter(e *echo.Echo) {
-	setStatic(e)
+type (
+	Host struct {
+		Echo *echo.Echo
+	}
+)
 
-	// API用のエンドポイントは /api から始める
-	e.GET("/api/health", controller.Health)
+func Main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Printf("読み込み出来ませんでした: %v", err)
+	}
+	origin := os.Getenv("ORIGIN")
+
+	// Hosts
+	hosts := map[string]*Host{}
+
+	// API
+	api := echo.New()
+	api.Use(middleware.Logger())
+	api.Use(middleware.Recover())
+
+	hosts["api."+origin] = &Host{api}
+
+	api.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "API")
+	})
+
+	// Storybook
+	storybook := echo.New()
+	storybook.Use(middleware.Logger())
+	storybook.Use(middleware.Recover())
+
+	hosts["storybook."+origin] = &Host{storybook}
+
+	storybook.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "storybook")
+	})
+
+	// Website
+	site := echo.New()
+	site.Use(middleware.Logger())
+	site.Use(middleware.Recover())
+
+	hosts[origin] = &Host{site}
+	appHandler(site)
+
+	// Server
+	e := echo.New()
+	e.Any("/*", func(c echo.Context) (err error) {
+		req := c.Request()
+		res := c.Response()
+		host := hosts[req.Host]
+
+		if host == nil {
+			err = echo.ErrNotFound
+		} else {
+			host.Echo.ServeHTTP(res, req)
+		}
+
+		return
+	})
+	e.Logger.Fatal(e.Start(":3000"))
 }
 
-func setStatic(e *echo.Echo) {
+func appHandler(e *echo.Echo) {
 	e.File("/", "./components/dist/index.html")
 	e.File("/favicon.ico", "./components/dist/favicon.ico")
 	e.File("/assets/main.js", "./components/dist/assets/main.js")

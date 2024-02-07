@@ -1,14 +1,7 @@
 package main
 
-import (
-	"sau-na/router"
-
-	"github.com/labstack/echo/v4"
-)
+import "sau-na/router"
 
 func main() {
-	e := echo.New()
-	router.InitRouter(e)
-
-	e.Logger.Fatal(e.Start(":3000"))
+	router.Main()
 }
