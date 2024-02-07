@@ -16,7 +16,7 @@ type (
 	}
 )
 
-func Main() {
+func Router() {
 	origin, check := os.LookupEnv("ORIGIN")
 
 	if !check {
