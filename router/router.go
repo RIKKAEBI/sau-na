@@ -1,11 +1,9 @@
 package router
 
 import (
-	"fmt"
 	"net/http"
-	"os"
+	"sau-na/common"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -17,16 +15,7 @@ type (
 )
 
 func Router() {
-	origin, check := os.LookupEnv("ORIGIN")
-
-	if !check {
-		godotenv.Load(".env")
-		origin, check = os.LookupEnv("ORIGIN")
-
-		if !check {
-			fmt.Printf("環境変数が読み込めてないからビルドを止めてあげたい")
-		}
-	}
+	origin := common.LoadEnv()
 
 	// Hosts
 	hosts := map[string]*Host{}
