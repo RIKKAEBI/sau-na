@@ -17,14 +17,15 @@ type (
 )
 
 func Main() {
-	env, check := os.LookupEnv("ORIGIN")
+	origin, check := os.LookupEnv("ORIGIN")
 
 	if !check {
 		godotenv.Load(".env")
-		env = os.Getenv("ORIGIN")
-	} else {
-		// TODO:ここでビルドを止めてあげたい
-		fmt.Printf("環境変数が読み込めてないからビルドを止めてあげたい")
+		origin, check = os.LookupEnv("ORIGIN")
+
+		if !check {
+			fmt.Printf("環境変数が読み込めてないからビルドを止めてあげたい")
+		}
 	}
 
 	// Hosts
@@ -35,7 +36,7 @@ func Main() {
 	api.Use(middleware.Logger())
 	api.Use(middleware.Recover())
 
-	hosts["api."+env] = &Host{api}
+	hosts["api."+origin] = &Host{api}
 
 	api.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "API")
@@ -46,7 +47,7 @@ func Main() {
 	storybook.Use(middleware.Logger())
 	storybook.Use(middleware.Recover())
 
-	hosts["storybook."+env] = &Host{storybook}
+	hosts["storybook."+origin] = &Host{storybook}
 
 	storybook.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "storybook")
@@ -57,7 +58,7 @@ func Main() {
 	site.Use(middleware.Logger())
 	site.Use(middleware.Recover())
 
-	hosts[env] = &Host{site}
+	hosts[origin] = &Host{site}
 	appHandler(site)
 
 	// Server
