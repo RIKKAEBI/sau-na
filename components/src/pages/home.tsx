@@ -1,10 +1,13 @@
 import { LoginButton } from "../components/LoginButton"
-import logo from "../../public/Kasu-chan.png"
 
 export const home = () => {
   return (
     <>
-      <img src={logo} alt="kasu Chan" class="w-[60%] min-w-80 mx-auto mt-12" />
+      <img
+        src="/Kasu-chan.png"
+        alt="kasu Chan"
+        class="w-[60%] min-w-80 mx-auto mt-12"
+      />
       <h1 class="text-center text-7xl mt-12 text-blue-600 google-font">
         さう〜な
       </h1>
