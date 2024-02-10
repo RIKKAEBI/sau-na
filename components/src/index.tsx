@@ -4,6 +4,7 @@ import { Route, Router } from "@solidjs/router"
 import { notFound } from "./pages/notFound"
 import { home } from "./pages/home"
 import { mypage } from "./pages/mypage"
+import { register } from "./pages/register"
 import "./index.css"
 
 const root = document.getElementById("root")
@@ -16,7 +17,7 @@ render(
       <Route path="/*" component={notFound} />
 
       {/* server page */}
-      <Route path="/register" />
+      <Route path="/register" component={register} />
     </Router>
   ),
   root!,
