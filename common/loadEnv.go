@@ -8,17 +8,19 @@ import (
 )
 
 // 環境変数を読み込む関数
-func LoadEnv() string {
-	origin, check := os.LookupEnv("ORIGIN")
+func LoadEnv() (origin string, URL string) {
+	origin, originCheck := os.LookupEnv("ORIGIN")
+	URL, URLCheck := os.LookupEnv("URL")
 
-	if !check {
+	if !originCheck || !URLCheck {
 		godotenv.Load(".env")
-		origin, check = os.LookupEnv("ORIGIN")
+		origin, originCheck = os.LookupEnv("ORIGIN")
+		URL, URLCheck = os.LookupEnv("URL")
 
-		if !check {
+		if !originCheck || !URLCheck {
 			fmt.Printf("環境変数が読み込めてないからビルドを止めてあげたい")
 		}
 	}
 
-	return origin
+	return origin, URL
 }

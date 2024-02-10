@@ -21,15 +21,15 @@ export const Button = ({
   )
 }
 
-type ExtButtonProps = { path: string } & Props &
+type LinkButtonProps = { path: string } & Props &
   JSX.LinkHTMLAttributes<HTMLAnchorElement>
 
-export const ExtButton = ({
+export const LinkButton = ({
   children,
   outline = false,
   path,
   ...props
-}: ExtButtonProps) => {
+}: LinkButtonProps) => {
   return (
     <A
       href={path}

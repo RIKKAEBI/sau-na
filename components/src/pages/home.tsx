@@ -1,4 +1,4 @@
-import { LoginButton } from "../components/LoginButton"
+import { LoginButton } from "../components/module/LoginButton"
 
 export const home = () => {
   return (
