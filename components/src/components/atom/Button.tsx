@@ -40,3 +40,21 @@ export const ExtButton = ({
     </A>
   )
 }
+
+export const LinkButton = ({
+  children,
+  outline = false,
+  path,
+  ...props
+}: ExtButtonProps) => {
+  return (
+    <a
+      href={path}
+      {...props}
+      class={`${outline && "outline"} button ${props.class} flex justify-center items-center`}
+      target="_blank"
+    >
+      {children}
+    </a>
+  )
+}

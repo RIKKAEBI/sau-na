@@ -1,5 +1,5 @@
 import { Layout } from "../layout"
-import { ExtButton } from "../components/Button"
+import { ExtButton } from "../components/atom/Button"
 
 export const notFound = () => {
   return (
