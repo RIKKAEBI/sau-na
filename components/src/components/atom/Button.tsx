@@ -21,15 +21,15 @@ export const Button = ({
   )
 }
 
-type ExtButtonProps = { path: string } & Props &
+type LinkButtonProps = { path: string } & Props &
   JSX.LinkHTMLAttributes<HTMLAnchorElement>
 
-export const ExtButton = ({
+export const LinkButton = ({
   children,
   outline = false,
   path,
   ...props
-}: ExtButtonProps) => {
+}: LinkButtonProps) => {
   return (
     <A
       href={path}
@@ -38,23 +38,5 @@ export const ExtButton = ({
     >
       {children}
     </A>
-  )
-}
-
-export const LinkButton = ({
-  children,
-  outline = false,
-  path,
-  ...props
-}: ExtButtonProps) => {
-  return (
-    <a
-      href={path}
-      {...props}
-      class={`${outline && "outline"} button ${props.class} flex justify-center items-center`}
-      target="_blank"
-    >
-      {children}
-    </a>
   )
 }
