@@ -6,7 +6,7 @@ export const LoginButton = (
   props: JSX.ButtonHTMLAttributes<HTMLAnchorElement>,
 ) => {
   return (
-    <LinkButton path="./register" {...props}>
+    <LinkButton path="/register" {...props}>
       <img src={logo} alt="google" />
     </LinkButton>
   )
