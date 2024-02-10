@@ -14,6 +14,9 @@ render(
       <Route path="/" component={home} />
       <Route path="/mypage" component={mypage} />
       <Route path="/*" component={notFound} />
+
+      {/* server page */}
+      <Route path="/register" />
     </Router>
   ),
   root!,
