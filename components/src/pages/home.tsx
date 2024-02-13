@@ -1,6 +1,8 @@
 import { LoginButton } from "../components/module/LoginButton"
+import { apiClient } from "../libs/api"
 
 export const home = () => {
+  apiClient("")
   return (
     <>
       <img
