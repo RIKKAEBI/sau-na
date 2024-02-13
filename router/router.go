@@ -1,11 +1,13 @@
 package router
 
 import (
+	"net/http"
 	"sau-na/common"
 	"sau-na/controller"
-	"sau-na/middleware"
+	sauna_middleware "sau-na/middleware"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type (
@@ -27,16 +29,21 @@ func Router() {
 	controller.ApiIndex(api)
 
 	// Storybook
-	sb := middleware.SpaBinding("./components/storybook-static")
+	sb := sauna_middleware.SpaBinding("./components/storybook-static")
 	hosts["storybook."+origin] = &Host{sb}
 
 	// Website
-	site := middleware.SpaBinding("./components/dist")
+	site := sauna_middleware.SpaBinding("./components/dist")
 	controller.SiteAuth(site, URL)
 	hosts[origin] = &Host{site}
 
 	// Server
 	e := echo.New()
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"https://sau-na.com", "http://localhost:4000", "http://localhost:3000"},
+		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	}))
+
 	e.Any("/*", func(c echo.Context) (err error) {
 		req := c.Request()
 		res := c.Response()
