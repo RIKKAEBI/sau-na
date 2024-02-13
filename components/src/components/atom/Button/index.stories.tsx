@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "storybook-solidjs"
-import { Button } from "./Button"
+import { Button } from "."
 
 const meta = {
   title: "atom/Button",
@@ -13,6 +13,4 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
-  args: {},
-}
+export const Primary: Story = {}

@@ -1,4 +1,4 @@
-import { LinkButton } from "../components/atom/Button"
+import { Link } from "../components/atom/Link"
 import { Layout } from "../layout"
 
 export const notFound = () => {
@@ -13,9 +13,9 @@ export const notFound = () => {
         <span>そんなページねーよ！！</span>
         <span>こっちがぴえんだわ！！</span>
       </h1>
-      <LinkButton path="/" outline class="mt-8 mx-auto block">
+      <Link path="/" outline class="mt-8 mx-auto block">
         トップへ戻る
-      </LinkButton>
+      </Link>
     </Layout>
   )
 }
