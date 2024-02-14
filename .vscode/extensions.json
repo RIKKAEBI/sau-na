@@ -3,6 +3,7 @@
     "golang.go",
     "jinliming2.vscode-go-template",
     "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "ms-azuretools.vscode-docker",
   ]
 }
