@@ -18,24 +18,25 @@ type (
 
 func Router() {
 	// サイトのオリジンを取得
-	origin, URL := common.LoadEnv()
+	ORIGIN := common.ORIGIN
+	URL := common.URL
 
 	// Hosts
 	hosts := map[string]*Host{}
 
 	// API
 	api := echo.New()
-	hosts["api."+origin] = &Host{api}
+	hosts["api."+ORIGIN] = &Host{api}
 	controller.ApiIndex(api)
 
 	// Storybook
 	sb := sauna_middleware.SpaBinding("./components/storybook-static")
-	hosts["storybook."+origin] = &Host{sb}
+	hosts["storybook."+ORIGIN] = &Host{sb}
 
 	// Website
 	site := sauna_middleware.SpaBinding("./components/dist")
 	controller.SiteAuth(site, URL)
-	hosts[origin] = &Host{site}
+	hosts[ORIGIN] = &Host{site}
 
 	// Server
 	e := echo.New()
