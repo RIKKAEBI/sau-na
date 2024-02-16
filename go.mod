@@ -12,6 +12,7 @@ require (
 require (
 	cloud.google.com/go/compute v1.23.3 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
+	github.com/caarlos0/env/v10 v10.0.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
@@ -39,6 +40,7 @@ require (
 )
 
 require (
+	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.4.2 // indirect
