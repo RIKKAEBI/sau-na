@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	common.LoadEnv()
+	common.Env = common.LoadEnv()
 	router.Router()
 }
