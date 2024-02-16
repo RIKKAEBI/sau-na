@@ -1,7 +1,11 @@
 package main
 
-import "sau-na/router"
+import (
+	"sau-na/common"
+	"sau-na/router"
+)
 
 func main() {
+	common.Env = common.LoadEnv()
 	router.Router()
 }
