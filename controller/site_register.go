@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
-	"sau-na/middleware"
+	"sau-na/conf"
 
 	"github.com/labstack/echo/v4"
 	"golang.org/x/oauth2"
@@ -21,7 +21,7 @@ func register(e *echo.Echo, URL string) {
 		// codeのクエリがついている場合はユーザー情報を取得しにいく
 		if code != "" {
 			// codeからtokenを取得しにいく
-			googleOauthConfig := middleware.NewGoogleOauthConfig(URL + "/register")
+			googleOauthConfig := conf.GoogleAuthConf(URL + "/register")
 			token, err := googleOauthConfig.Exchange(c.Request().Context(), code)
 
 			if err != nil {
@@ -54,7 +54,7 @@ func register(e *echo.Echo, URL string) {
 		}
 
 		// Googleログインページにリダイレクトさせる
-		googleOauthConfig := middleware.NewGoogleOauthConfig(URL + "/register")
+		googleOauthConfig := conf.GoogleAuthConf(URL + "/register")
 		url := googleOauthConfig.AuthCodeURL("state", oauth2.AccessTypeOffline)
 
 		return c.Redirect(http.StatusFound, url)

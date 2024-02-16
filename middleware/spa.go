@@ -6,12 +6,9 @@ import (
 )
 
 // SPAモードでファイルを配置
-func SpaBinding(path string) *echo.Echo {
-	e := echo.New()
-	e.Use(middleware.StaticWithConfig(middleware.StaticConfig{
+func Spa(path string) echo.MiddlewareFunc {
+	return middleware.StaticWithConfig(middleware.StaticConfig{
 		HTML5: true,
 		Root:  path,
-	}))
-
-	return e
+	})
 }
