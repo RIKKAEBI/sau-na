@@ -1,8 +1,8 @@
 package router
 
 import (
-	"sau-na/common"
 	"sau-na/controller"
+	"sau-na/global"
 	"sau-na/middleware"
 
 	"github.com/labstack/echo/v4"
@@ -21,25 +21,25 @@ func Router() {
 	// API
 	api := echo.New()
 	api.Use(middleware.Cors())
-	hosts["api."+common.Env.DOMAIN] = &Host{api}
+	hosts["api."+global.Env.DOMAIN] = &Host{api}
 	// routing
 	controller.ApiIndex(api)
 
 	// Storybook
 	sb := echo.New()
 	sb.Use(middleware.Spa("./components/storybook-static"))
-	hosts["storybook."+common.Env.DOMAIN] = &Host{sb}
+	hosts["storybook."+global.Env.DOMAIN] = &Host{sb}
 
 	// Website
 	site := echo.New()
 	site.Use(middleware.Spa("./components/dist"))
-	hosts[common.Env.DOMAIN] = &Host{site}
+	hosts[global.Env.DOMAIN] = &Host{site}
 	// routing
-	controller.SiteAuth(site, common.Env.URL)
+	controller.SiteAuth(site)
 
 	// Database
 	db := echo.New()
-	hosts["database."+common.Env.DOMAIN] = &Host{db}
+	hosts["database."+global.Env.DOMAIN] = &Host{db}
 
 	// Server
 	e := echo.New()
